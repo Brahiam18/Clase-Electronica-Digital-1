@@ -16,7 +16,7 @@ Todo se construye en VHDL con flip-flops, registros, contadores y máquinas de e
 |---|---|
 | [`guia/`](guia/) | **Guía oficial de la entrega**: requerimientos RF1–RF11, restricciones R1–R13, diagramas, casos de prueba y rúbrica |
 | [`diapositivas/`](diapositivas/) | Presentaciones de las 5 clases (PDF) |
-| [`docs/`](docs/) | Hoja rápida: cómo probar el código con el testbench |
+| [`docs/`](docs/) | **[Cómo correr el testbench paso a paso](docs/COMO_CORRER_EL_TESTBENCH.md)** y hoja rápida en PDF |
 | [`clase1_registros/`](clase1_registros/) | Flip-flops, registros y reset |
 | [`clase2_contadores/`](clase2_contadores/) | Contadores y base de tiempo |
 | [`clase3_teclado/`](clase3_teclado/) | Teclado matricial |
@@ -71,6 +71,8 @@ git clone https://github.com/Brahiam18/Clase-Electronica-Digital-1.git
 > Copien la carpeta `entrega2-logica-secuencial` a una ruta **sin espacios ni tildes**, por ejemplo `C:/Users/Usuario/Desktop/dig1`.
 
 ### 2. Simular una clase (ejemplo: clase 1)
+
+> Guía completa con capturas de los mensajes, metas por clase y errores comunes: **[docs/COMO_CORRER_EL_TESTBENCH.md](docs/COMO_CORRER_EL_TESTBENCH.md)**. Cada carpeta de clase también tiene su propio `README` con los pasos.
 
 1. Abran **ModelSim** (o Questa) desde el menú Inicio.
 2. En la consola **Transcript**, vayan a la carpeta de la clase, usando `/` y no `\`:

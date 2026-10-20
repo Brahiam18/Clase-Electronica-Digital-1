@@ -5,7 +5,7 @@ Proyecto del semestre: un sistema digital que mide el nivel de un tanque con cin
 | Entrega | Tema | Material |
 |---|---|---|
 | [**1**](entrega1-logica-combinacional/) | Lógica combinacional: detección de nivel, errores de sensor, displays y activación de la bomba | [Guía (PDF)](entrega1-logica-combinacional/Guia_Primera_Entrega.pdf) |
-| [**2**](entrega2-logica-secuencial/) | Lógica secuencial: teclado matricial, contraseña, modo administrador, llenado por nivel o por tiempo, compuerta de vaciado | [Guía (PDF)](entrega2-logica-secuencial/guia/Guia_Segunda_Entrega.pdf) · [Diapositivas](entrega2-logica-secuencial/diapositivas/) · [Instrucciones](entrega2-logica-secuencial/README.md) |
+| [**2**](entrega2-logica-secuencial/) | Lógica secuencial: teclado matricial, contraseña, modo administrador, llenado por nivel o por tiempo, compuerta de vaciado | [Guía (PDF)](entrega2-logica-secuencial/guia/Guia_Segunda_Entrega.pdf) · [Diapositivas](entrega2-logica-secuencial/diapositivas/) · [Instrucciones](entrega2-logica-secuencial/README.md) · [**Cómo correr el testbench**](entrega2-logica-secuencial/docs/COMO_CORRER_EL_TESTBENCH.md) |
 
 ## Entrega 2 · Plan de clases
 
