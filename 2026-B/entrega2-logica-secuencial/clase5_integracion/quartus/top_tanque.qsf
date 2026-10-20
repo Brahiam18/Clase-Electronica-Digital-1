@@ -1,0 +1,100 @@
+# =============================================================================
+# top_tanque.qsf - Proyecto Quartus de la segunda entrega
+# Tarjeta: Terasic DE0-Nano (Cyclone IV E EP4CE22F17C6)
+# IMPORTANTE: verifiquen cada pin contra el manual de usuario de la DE0-Nano
+# y contra su cableado real antes de programar la tarjeta.
+# =============================================================================
+set_global_assignment -name FAMILY "Cyclone IV E"
+set_global_assignment -name DEVICE EP4CE22F17C6
+set_global_assignment -name TOP_LEVEL_ENTITY top_tanque
+set_global_assignment -name PROJECT_OUTPUT_DIRECTORY output_files
+set_global_assignment -name VHDL_INPUT_VERSION VHDL_1993
+set_global_assignment -name SDC_FILE top_tanque.sdc
+# Toda la E/S a 3,3 V (en la entrega 1 quedo en 2,5 V por defecto)
+set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
+set_global_assignment -name VHDL_FILE ../rtl/tanque_pkg.vhd
+set_global_assignment -name VHDL_FILE ../rtl/sincronizador.vhd
+set_global_assignment -name VHDL_FILE ../rtl/reset_sync.vhd
+set_global_assignment -name VHDL_FILE ../rtl/base_tiempo.vhd
+set_global_assignment -name VHDL_FILE ../rtl/antirrebote.vhd
+set_global_assignment -name VHDL_FILE ../rtl/detector_flanco.vhd
+set_global_assignment -name VHDL_FILE ../rtl/barrido_teclado.vhd
+set_global_assignment -name VHDL_FILE ../rtl/teclado_4x4.vhd
+set_global_assignment -name VHDL_FILE ../rtl/reg_desplazamiento.vhd
+set_global_assignment -name VHDL_FILE ../rtl/temporizador.vhd
+set_global_assignment -name VHDL_FILE ../rtl/digito_bcd.vhd
+set_global_assignment -name VHDL_FILE ../rtl/temporizador_bcd.vhd
+set_global_assignment -name VHDL_FILE ../rtl/contador_bcd.vhd
+set_global_assignment -name VHDL_FILE ../rtl/watchdog_bomba.vhd
+set_global_assignment -name VHDL_FILE ../rtl/detector_nivel.vhd
+set_global_assignment -name VHDL_FILE ../rtl/selector_nivel.vhd
+set_global_assignment -name VHDL_FILE ../rtl/decodificador_7seg.vhd
+set_global_assignment -name VHDL_FILE ../rtl/formateador_display.vhd
+set_global_assignment -name VHDL_FILE ../rtl/fsm_proceso.vhd
+set_global_assignment -name VHDL_FILE ../rtl/fsm_sesion.vhd
+set_global_assignment -name VHDL_FILE ../rtl/top_tanque.vhd
+
+# ---------------- reloj y reset (pines fijos de la tarjeta) ----------------
+set_location_assignment PIN_R8 -to clk
+set_location_assignment PIN_J15 -to rst_n
+
+# ---------------- LEDs de la tarjeta ----------------
+set_location_assignment PIN_A15 -to led_s5
+set_location_assignment PIN_A13 -to led_admin
+set_location_assignment PIN_B13 -to led_alarma
+
+# ---------------- displays en GPIO_0 [0..27] ----------------
+set_location_assignment PIN_D3 -to dis3[6]
+set_location_assignment PIN_C3 -to dis3[5]
+set_location_assignment PIN_A2 -to dis3[4]
+set_location_assignment PIN_A3 -to dis3[3]
+set_location_assignment PIN_B3 -to dis3[2]
+set_location_assignment PIN_B4 -to dis3[1]
+set_location_assignment PIN_A4 -to dis3[0]
+set_location_assignment PIN_B5 -to dis2[6]
+set_location_assignment PIN_A5 -to dis2[5]
+set_location_assignment PIN_D5 -to dis2[4]
+set_location_assignment PIN_B6 -to dis2[3]
+set_location_assignment PIN_A6 -to dis2[2]
+set_location_assignment PIN_B7 -to dis2[1]
+set_location_assignment PIN_D6 -to dis2[0]
+set_location_assignment PIN_A7 -to dis1[6]
+set_location_assignment PIN_C6 -to dis1[5]
+set_location_assignment PIN_C8 -to dis1[4]
+set_location_assignment PIN_E6 -to dis1[3]
+set_location_assignment PIN_E7 -to dis1[2]
+set_location_assignment PIN_D8 -to dis1[1]
+set_location_assignment PIN_E8 -to dis1[0]
+set_location_assignment PIN_F8 -to dis0[6]
+set_location_assignment PIN_F9 -to dis0[5]
+set_location_assignment PIN_E9 -to dis0[4]
+set_location_assignment PIN_C9 -to dis0[3]
+set_location_assignment PIN_D9 -to dis0[2]
+set_location_assignment PIN_E11 -to dis0[1]
+set_location_assignment PIN_E10 -to dis0[0]
+
+# ---------------- sensores en GPIO_0 [28..32] ----------------
+set_location_assignment PIN_C11 -to s1
+set_location_assignment PIN_B11 -to s2
+set_location_assignment PIN_A12 -to s3
+set_location_assignment PIN_D11 -to s4
+set_location_assignment PIN_D12 -to s5
+
+# ---------------- actuadores ----------------
+set_location_assignment PIN_B12 -to bomba_en
+set_location_assignment PIN_F13 -to compuerta_en
+
+# ---------------- teclado en GPIO_1 [1..8] ----------------
+set_location_assignment PIN_T15 -to filas[0]
+set_location_assignment PIN_T14 -to filas[1]
+set_location_assignment PIN_T13 -to filas[2]
+set_location_assignment PIN_R13 -to filas[3]
+set_location_assignment PIN_T12 -to columnas[0]
+set_location_assignment PIN_R12 -to columnas[1]
+set_location_assignment PIN_T11 -to columnas[2]
+set_location_assignment PIN_T10 -to columnas[3]
+# pull-up interno en las columnas (justifiquen su valor con la hoja de datos)
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to columnas[0]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to columnas[1]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to columnas[2]
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to columnas[3]

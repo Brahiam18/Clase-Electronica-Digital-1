@@ -1,0 +1,28 @@
+# ModelSim / Questa
+work/
+transcript
+*.wlf
+wlf*
+modelsim.ini
+*.vstf
+# Quartus
+db/
+incremental_db/
+output_files/
+simulation/
+greybox_tmp/
+*.qws
+*.bak
+*.rpt
+*.summary
+*.sof
+*.pof
+*.jdi
+*.smsg
+*.done
+*.pin
+*.qarlog
+c5_pin_model_dump.txt
+# Sistema
+Thumbs.db
+.DS_Store

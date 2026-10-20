@@ -1,0 +1,2 @@
+*.do text eol=crlf
+*.pdf binary

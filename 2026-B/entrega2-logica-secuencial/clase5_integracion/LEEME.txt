@@ -1,0 +1,19 @@
+CLASE 5 - Integracion: fsm_sesion, jerarquia, testbench y Quartus
+=================================================================
+1. Creen la carpeta  clase5_integracion/rtl/  y copien alli TODOS sus archivos
+   terminados de las clases 1 a 4, mas los de plantilla/ de esta clase.
+
+plantilla/
+  tanque_pkg.vhd, decodificador_7seg.vhd, detector_nivel.vhd,
+  selector_nivel.vhd, contador_bcd.vhd       completos (revisenlos)
+  fsm_sesion.vhd          contrasena, castigo y cambio de clave hechos;
+                          faltan MENU, CAPT, MENU_ADM y VER (TODO 1..4)
+  formateador_display.vhd faltan captura, vaciados y vista de proceso
+  top_tanque.vhd          faltan las instancias de sesion, proceso y display
+
+tb/tb_top_tanque.vhd   TC1, TC2, TC4 y TC5 hechos. Escriban TC3 y TC6..TC12.
+                       Meta: 12 casos, 0 fallas.
+
+quartus/   top_tanque.qpf, .qsf (pines DE0-Nano, 3,3 V, pull-ups) y .sdc.
+           VERIFIQUEN cada pin contra el manual y su cableado.
+           Al compilar revisen: 0 latches, Fmax > 50 MHz, elementos logicos.

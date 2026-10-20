@@ -1,0 +1,2 @@
+Copien aqui TODOS sus archivos .vhd terminados de las clases 1 a 4 y los de clase5_integracion/plantilla.
+El run.do y el proyecto de Quartus (quartus/) los buscan en esta carpeta.

@@ -1,0 +1,19 @@
+CLASE 3 - Teclado matricial: barrido, antirrebote y pulso de tecla
+==================================================================
+Necesitan los archivos terminados de las clases 1 y 2:
+  sincronizador, reset_sync, detector_flanco, base_tiempo, antirrebote.
+
+plantilla/   (completar los TODO)
+  barrido_teclado.vhd  barrido de filas, lectura de columnas y tabla de codigos
+  teclado_4x4.vhd      cadena completa (bloque estructural)
+
+analizar/
+  demo_teclado.vhd + demo_teclado.qsf   Prueba en la tarjeta: LEDs muestran la
+                                        ultima tecla y cuantas se han aceptado.
+                                        Respondan las preguntas del encabezado.
+
+tb/tb_teclado.vhd   Modelo realista del teclado con rebote. Estudien el
+                    procedure 'presionar': lo van a reutilizar en el testbench
+                    final. Meta: "RESUMEN: 19 OK, 0 FALLAS".
+
+Hardware: armen el teclado con las resistencias de la Figura 3 de la guia.
