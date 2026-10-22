@@ -10,10 +10,11 @@ Diseñar la máquina de sesión (menús, contraseña, administrador), unir todos
 
 | Carpeta | Qué hacer |
 |---|---|
-| `analizar/` | Ejemplos para leer y compilar en clase (no se modifican) |
 | `plantilla/` | **Aquí escriben su código**: completen los `-- TODO` |
 | `tb/` | Testbench autoverificable (`tb_top_tanque.vhd`): **no se modifica** |
 | `run.do` | Compila todo y corre el testbench (**no se modifica**) |
+| `rtl/` | Aquí copian **todos** sus archivos terminados |
+| `quartus/` | Proyecto de Quartus con pines y restricciones de tiempo |
 
 ## Qué completar (en este orden)
 
@@ -21,7 +22,7 @@ Diseñar la máquina de sesión (menús, contraseña, administrador), unir todos
 |---|---|---|
 | 1 | `fsm_sesion.vhd` | estados MENU, CAPT, MENU_ADM y VER (TODO 1 a 4) |
 | 2 | `formateador_display.vhd` | vistas de captura, vaciados y estado del proceso |
-| 3 | `top_tanque.vhd` | instancias de sesión, proceso y displays (TODO 1 a 9) |
+| 3 | `top_tanque.vhd` | instancias de sesión, proceso y displays (TODO 1 a 8) |
 | 4 | `tanque_pkg, decodificador_7seg, detector_nivel, selector_nivel, contador_bcd` | completos: solo revisarlos |
 
 ## Cómo correr el testbench
@@ -42,7 +43,7 @@ Diseñar la máquina de sesión (menús, contraseña, administrador), unir todos
 4. Al final del Transcript lean la línea `RESUMEN`:
 
    - Con la plantilla incompleta aparecen errores o fallas: es normal.
-   - Meta: **0 fallas en los 12 casos**
+   - Meta: **0 fallas en los 12 casos (TC1, TC2, TC4 y TC5 vienen hechos; escriban TC3 y TC6 a TC12)**
 
 5. Cada vez que cambien código: **guardar (Ctrl+S)** y otra vez `do run.do` (flecha ↑ y Enter).
 

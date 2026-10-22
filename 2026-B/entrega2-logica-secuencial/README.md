@@ -1,7 +1,7 @@
 # Electrónica Digital I · 2026-B · Segunda entrega
 ## Sistema de control de nivel de un tanque en FPGA: lógica secuencial en VHDL
 
-Material del curso para la **segunda entrega**: el sistema de monitoreo del tanque de la primera entrega ahora **recuerda**. Se controla desde un teclado matricial 4×4, tiene contraseña y modo administrador, llena por nivel objetivo o por tiempo, y abre una compuerta de vaciado automática.
+Material del curso para la **segunda entrega**: el sistema de monitoreo del tanque de la primera entrega ahora **recuerda**. Se controla desde un teclado matricial 4×4, tiene contraseña y modo administrador, llena el tanque hasta un nivel objetivo y abre una compuerta de vaciado automática.
 
 Todo se construye en VHDL con flip-flops, registros, contadores y máquinas de estado, sobre la tarjeta **DE0-Nano** (Cyclone IV E · EP4CE22F17C6).
 
@@ -14,12 +14,12 @@ Todo se construye en VHDL con flip-flops, registros, contadores y máquinas de e
 
 | Carpeta | Contenido |
 |---|---|
-| [`guia/`](guia/) | **Guía oficial de la entrega**: requerimientos RF1–RF11, restricciones R1–R13, diagramas, casos de prueba y rúbrica |
+| [`guia/`](guia/) | **Guía oficial de la entrega** (requerimientos RF1–RF10, restricciones R1–R13, diagramas, casos de prueba y rúbrica) y **guía de laboratorio del teclado matricial** |
 | [`diapositivas/`](diapositivas/) | Presentaciones de las 5 clases (PDF) |
 | [`docs/`](docs/) | **[Cómo correr el testbench paso a paso](docs/COMO_CORRER_EL_TESTBENCH.md)** y hoja rápida en PDF |
 | [`clase1_registros/`](clase1_registros/) | Flip-flops, registros y reset |
-| [`clase2_contadores/`](clase2_contadores/) | Contadores y base de tiempo |
-| [`clase3_teclado/`](clase3_teclado/) | Teclado matricial |
+| [`clase2_teclado/`](clase2_teclado/) | Teclado matricial (con práctica de laboratorio) |
+| [`clase3_contadores/`](clase3_contadores/) | Contadores y base de tiempo |
 | [`clase4_fsm/`](clase4_fsm/) | Máquinas de estado: `fsm_proceso` |
 | [`clase5_integracion/`](clase5_integracion/) | `fsm_sesion`, sistema completo y proyecto de Quartus |
 
@@ -27,7 +27,7 @@ Cada carpeta de clase tiene la misma estructura:
 
 ```
 claseN_tema/
-├── LEEME.txt     ← qué hacer en esa clase
+├── README.md    ← qué hacer en esa clase
 ├── run.do        ← comandos para simular (no se modifica)
 ├── analizar/     ← ejemplos para leer y compilar en clase
 ├── plantilla/    ← AQUÍ escriben su código (completar los -- TODO)
@@ -41,8 +41,8 @@ claseN_tema/
 | Clase | Tema | Bloques que construyen | Meta del testbench |
 |---|---|---|---|
 | 1 | Flip-flops, registros y reset | `sincronizador`, `reset_sync`, `detector_flanco`, `reg_desplazamiento` | **13 OK** |
-| 2 | Contadores y base de tiempo | `base_tiempo`, `temporizador`, `antirrebote`, `digito_bcd`, `temporizador_bcd`, `watchdog_bomba` (tarea) | **18 OK** |
-| 3 | Teclado matricial | `barrido_teclado`, `teclado_4x4` + demo en la tarjeta | **19 OK** |
+| 2 | Teclado matricial | `antirrebote`, `barrido_teclado`, `teclado_4x4` + práctica en la tarjeta | **22 OK** |
+| 3 | Contadores y base de tiempo | `base_tiempo`, `temporizador`, `digito_bcd`, `temporizador_bcd`, `watchdog_bomba` (tarea) | **16 OK** |
 | 4 | Máquinas de estado | `fsm_proceso` (estados PAUSA, VACIAR, MANUAL, FALLA y salidas) | **22 OK** |
 | 5 | Integración y Quartus | `fsm_sesion`, `formateador_display`, `top_tanque` y casos TC3, TC6–TC12 | **12 casos, 0 fallas** |
 
@@ -116,7 +116,7 @@ Con la plantilla sin completar **deben salir fallas**. Eso confirma que todo est
 
 ## Notas por clase
 
-- **Clase 3** usa sus archivos de las clases 1 y 2. El `run.do` los busca en `../clase1_registros/plantilla/` y `../clase2_contadores/plantilla/`, así que deben estar completos.
+- **Clase 2** usa sus archivos terminados de la clase 1 (`sincronizador`, `detector_flanco`); el `run.do` los busca en `../clase1_registros/plantilla/`. La base de tiempo viene ya hecha en `clase2_teclado/apoyo/` y se construye en la clase 3.
 - **Clase 5**: antes de simular, copien **todos** sus archivos terminados (clases 1 a 4 y `clase5_integracion/plantilla/`) a la carpeta `clase5_integracion/rtl/`. El `run.do` y el proyecto de Quartus (`quartus/`) leen desde ahí.
 - El archivo `quartus/top_tanque.qsf` trae la asignación de pines de la DE0-Nano. **Verifíquenla contra el manual de la tarjeta y su cableado** antes de programar.
 

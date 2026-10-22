@@ -1,10 +1,11 @@
 -- =============================================================================
--- CLASE 3 - TESTBENCH: tb_teclado.vhd
+-- CLASE 2 - TESTBENCH: tb_teclado.vhd
 -- Modelo REALISTA del teclado: el testbench no fuerza el codigo de tecla.
 -- Observa que fila pone la FPGA en '0' y, si la tecla "presionada" esta en esa
 -- fila, pone en '0' la columna correspondiente (como los contactos reales).
 -- Ademas simula el REBOTE al presionar y al soltar.
 -- Este modelo y el procedure 'presionar' se reutilizan en el testbench final.
+-- Primero se prueba el antirrebote solo (con N = 5) y luego la cadena completa.
 -- =============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
@@ -22,6 +23,9 @@ architecture sim of tb_teclado is
     signal columnas, filas, cod : std_logic_vector(3 downto 0);
     signal valida   : std_logic;
     signal pulsos   : natural := 0;
+    -- prueba directa del antirrebote
+    signal tick_m   : std_logic := '0';
+    signal ar_in, ar_out : std_logic_vector(0 downto 0) := "0";
 
     -- ---------- modelo del teclado ----------
     signal k_fila, k_col   : integer range 0 to 3 := 0;
@@ -45,6 +49,9 @@ begin
     u_bt : entity work.base_tiempo generic map (CLK_HZ => CLK_HZ)
         port map (clk => clk, rst => rst, tick_1ms => tick_1ms,
                   tick_4hz => open, tick_1hz => open, onda_2hz => open);
+
+    u_ar : entity work.antirrebote generic map (ANCHO => 1, N_TICKS => 5)
+        port map (clk => clk, rst => rst, tick => tick_m, entrada => ar_in, salida => ar_out);
 
     dut : entity work.teclado_4x4 generic map (N_REBOTE => 20)
         port map (clk => clk, rst => rst, tick_1ms => tick_1ms, columnas => columnas,
@@ -76,6 +83,16 @@ begin
         end procedure;
 
         -- presiona (f, c) con rebote, la mantiene 'dur' y la suelta con rebote
+        procedure pulsos_tick (k : natural) is      -- k ticks manuales
+        begin
+            for i in 1 to k loop
+                wait until rising_edge(clk); tick_m <= '1';
+                wait until rising_edge(clk); tick_m <= '0';
+                wait until rising_edge(clk);
+            end loop;
+            wait for 1 ns;
+        end procedure;
+
         procedure presionar (f, c : integer; dur : time) is
         begin
             k_fila <= f; k_col <= c;
@@ -92,6 +109,14 @@ begin
         end procedure;
     begin
         wait for 1 ms; rst <= '0'; wait for 10 ms;
+
+        -- 0) antirrebote solo (N = 5 ticks)
+        ar_in <= "1"; pulsos_tick(2); ar_in <= "0"; pulsos_tick(1); ar_in <= "1"; pulsos_tick(3);
+        verificar(ar_out = "0", "antirrebote: un rebote reinicia la cuenta");
+        pulsos_tick(3);
+        verificar(ar_out = "1", "antirrebote: acepta tras 5 ticks estable");
+        ar_in <= "0"; pulsos_tick(2);
+        verificar(ar_out = "1", "antirrebote: un pulso corto no cambia la salida");
 
         -- 1) las 16 teclas: codigo correcto y UN pulso por pulsacion
         for f in 0 to 3 loop

@@ -1,5 +1,5 @@
 -- =============================================================================
--- CLASE 3 - DEMO EN LA TARJETA: demo_teclado.vhd
+-- CLASE 2 - DEMO EN LA TARJETA: demo_teclado.vhd
 -- Prueba el teclado SOLO, antes de integrarlo al proyecto.
 --   * LED[3:0] muestran el codigo de la ultima tecla.
 --   * LED[7:4] cuentan cuantas teclas se han aceptado (prueba de rebote:

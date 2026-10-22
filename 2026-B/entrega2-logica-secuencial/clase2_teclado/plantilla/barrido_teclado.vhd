@@ -1,5 +1,5 @@
 -- =============================================================================
--- CLASE 3 - PLANTILLA: barrido_teclado.vhd
+-- CLASE 2 - PLANTILLA: barrido_teclado.vhd
 --
 --   Distribucion:      col0 col1 col2 col3
 --             fila0     1    2    3    A

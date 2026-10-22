@@ -6,12 +6,12 @@ set_global_assignment -name STRATIX_DEVICE_IO_STANDARD "3.3-V LVTTL"
 set_global_assignment -name VHDL_FILE demo_teclado.vhd
 set_global_assignment -name VHDL_FILE ../plantilla/barrido_teclado.vhd
 set_global_assignment -name VHDL_FILE ../plantilla/teclado_4x4.vhd
-# Copien aqui sus archivos de las clases 1 y 2:
+# Archivos de la clase 1 (terminados) y bloques de apoyo:
 set_global_assignment -name VHDL_FILE ../../clase1_registros/plantilla/sincronizador.vhd
 set_global_assignment -name VHDL_FILE ../../clase1_registros/plantilla/reset_sync.vhd
 set_global_assignment -name VHDL_FILE ../../clase1_registros/plantilla/detector_flanco.vhd
-set_global_assignment -name VHDL_FILE ../../clase2_contadores/plantilla/base_tiempo.vhd
-set_global_assignment -name VHDL_FILE ../../clase2_contadores/plantilla/antirrebote.vhd
+set_global_assignment -name VHDL_FILE ../apoyo/base_tiempo.vhd
+set_global_assignment -name VHDL_FILE ../plantilla/antirrebote.vhd
 set_location_assignment PIN_R8  -to clk
 set_location_assignment PIN_J15 -to rst_n
 set_location_assignment PIN_A15 -to led[0]

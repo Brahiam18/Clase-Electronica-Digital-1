@@ -47,7 +47,7 @@ Para verlos en Quartus: creen un proyecto en una carpeta aparte, agreguen el arc
 
 4. Al final del Transcript lean la línea `RESUMEN`:
 
-   - Plantilla sin completar: **9 OK, 13 FALLAS**
+   - Plantilla sin completar: **8 OK, 14 FALLAS**
    - Meta: **22 OK, 0 FALLAS**
 
 5. Cada vez que cambien código: **guardar (Ctrl+S)** y otra vez `do run.do` (flecha ↑ y Enter).

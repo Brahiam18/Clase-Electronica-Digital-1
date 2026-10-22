@@ -1,5 +1,5 @@
 -- =============================================================================
--- CLASE 2 - PLANTILLA: temporizador_bcd.vhd   (R7)
+-- CLASE 3 - PLANTILLA: temporizador_bcd.vhd   (R7)
 -- Cuenta regresiva 99..00 hecha con DOS digito_bcd EN CASCADA.
 --
 --   tick --+                 +----------+ presta_u  +----------+
@@ -7,8 +7,8 @@
 --   not cero_tot ---+        +----------+           +----------+
 --                                cero_u  ----+---- cero_d
 --                                            +--> cero_tot (AND)
--- Usos: llenado por tiempo 01..99 s (RF4) y bloqueo de 30 s (RF2).
--- 'ena' = 0 PAUSA la cuenta sin perder el valor (S5 = 0 en RF4).
+-- Uso: cuenta regresiva del bloqueo por intentos (RF2): 30 s mostrados en display.
+-- 'ena' = 0 detiene la cuenta sin perder el valor.
 -- =============================================================================
 library ieee;
 use ieee.std_logic_1164.all;

@@ -1,5 +1,5 @@
 -- =============================================================================
--- CLASE 2 - PLANTILLA: base_tiempo.vhd   (R1, R10)
+-- CLASE 3 - PLANTILLA: base_tiempo.vhd   (R1, R10)
 -- Unica fuente de tiempo. Tres contadores EN CASCADA:
 --
 --   clk --[cuenta CLK_HZ/1000]--> tick_1ms --[cuenta 250]--> tick_4hz --[cuenta 4]--> tick_1hz

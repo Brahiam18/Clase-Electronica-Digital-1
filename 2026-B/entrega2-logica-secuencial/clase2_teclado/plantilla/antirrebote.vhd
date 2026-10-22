@@ -3,7 +3,7 @@
 -- Acepta el valor de 'entrada' solo si se mantiene IGUAL durante N_TICKS
 -- pulsos de 'tick'. Cualquier cambio reinicia la cuenta.
 --   Teclado     : N_TICKS = 20  con tick de 1 ms  -> 20 ms
---   Sensores S1-S4 (filtro de oleaje, RF11): N_TICKS = 200 -> 200 ms
+--   Sensores S1-S4 (filtro de oleaje, RF10): N_TICKS = 200 -> 200 ms
 --
 --   entrada  ___|-|_|-|__|-------------------------
 --   cuenta    0  0 0 0 0  1 2 3 ...          N-1

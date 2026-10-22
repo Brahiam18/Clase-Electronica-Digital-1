@@ -1,5 +1,5 @@
 -- =============================================================================
--- CLASE 2 - ANALIZAR: dos formas de hacer que un LED parpadee a 1 Hz
+-- CLASE 3 - ANALIZAR: dos formas de hacer que un LED parpadee a 1 Hz
 -- La arquitectura A es la forma "intuitiva" y esta PROHIBIDA en el proyecto
 -- (R1). La B es la forma correcta.
 -- Preguntas:

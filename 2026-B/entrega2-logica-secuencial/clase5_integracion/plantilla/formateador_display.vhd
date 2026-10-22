@@ -18,7 +18,6 @@ entity formateador_display is
         entrada      : in  std_logic_vector(15 downto 0);
         estado_proc  : in  std_logic_vector(2 downto 0);
         cen, dec, uni: in  std_logic_vector(3 downto 0);   -- nivel en BCD
-        seg_bcd      : in  std_logic_vector(7 downto 0);   -- llenado por tiempo
         castigo_bcd  : in  std_logic_vector(7 downto 0);   -- bloqueo 30 s
         vaciados_bcd : in  std_logic_vector(7 downto 0);
         onda_2hz     : in  std_logic;
@@ -34,7 +33,7 @@ begin
     n <= unsigned(ndig);
     en_falla <= '1' when estado_proc = P_FALLA_B or estado_proc = P_FALLA_S else '0';
 
-    process (vista, n, entrada, estado_proc, cen, dec, uni, seg_bcd,
+    process (vista, n, entrada, estado_proc, cen, dec, uni,
              castigo_bcd, vaciados_bcd, en_falla)
     begin
         -- valores por defecto: todo apagado
@@ -57,14 +56,14 @@ begin
                 c1 <= '0' & castigo_bcd(7 downto 4);
                 c0 <= '0' & castigo_bcd(3 downto 0);
 
-            -- TODO 1: V_CAP_NIVEL / V_CAP_TIEMPO: letra L o t en D3 y los digitos
-            --         escritos (solo los que hay, segun n) en D2..D0
+            -- TODO 1: V_CAP_NIVEL: letra L en D3 y los digitos escritos
+            --         (solo los que hay, segun n) en D2..D0
             -- TODO 2: V_VACIADOS: 'n' en D3 y el contador en D1 D0
             when others =>      -- V_PROC_USR / V_PROC_ADM: estado de la planta
                 c2 <= '0' & cen; c1 <= '0' & dec; c0 <= '0' & uni;
                 -- TODO 3: letra de D3 segun estado_proc (tabla 3.4 de la guia):
                 --   P_NIVEL L, P_PAUSA P, P_VACIAR C, P_MANUAL A,
-                --   P_TIEMPO t + segundos restantes, P_FALLA_B "F-b", P_FALLA_S "F-S"
+                --   P_FALLA_B "F-b", P_FALLA_S "F-S"
                 -- TODO 4: si vista = V_PROC_ADM y no hay falla, D3 = 'A'
         end case;
     end process;

@@ -1,5 +1,5 @@
 -- =============================================================================
--- CLASE 2 - PLANTILLA: digito_bcd.vhd
+-- CLASE 3 - PLANTILLA: digito_bcd.vhd
 -- Un digito BCD DESCENDENTE (9 -> 0) con carga paralela.
 -- Cuando baja estando en 0 pasa a 9 y avisa con 'presta' al digito siguiente.
 --   d:      3 2 1 0 9 8 ...

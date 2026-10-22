@@ -25,7 +25,6 @@ package tanque_pkg is
     -- ---------- estado del proceso (fsm_proceso -> fsm_sesion/display) ----------
     constant P_REPOSO  : std_logic_vector(2 downto 0) := "000";
     constant P_NIVEL   : std_logic_vector(2 downto 0) := "001";
-    constant P_TIEMPO  : std_logic_vector(2 downto 0) := "010";
     constant P_PAUSA   : std_logic_vector(2 downto 0) := "011";
     constant P_VACIAR  : std_logic_vector(2 downto 0) := "100";
     constant P_MANUAL  : std_logic_vector(2 downto 0) := "101";
@@ -38,7 +37,6 @@ package tanque_pkg is
     constant V_ERR       : std_logic_vector(3 downto 0) := "0010";
     constant V_CASTIGO   : std_logic_vector(3 downto 0) := "0011";
     constant V_CAP_NIVEL : std_logic_vector(3 downto 0) := "0100";
-    constant V_CAP_TIEMPO: std_logic_vector(3 downto 0) := "0101";
     constant V_PROC_USR  : std_logic_vector(3 downto 0) := "0110";
     constant V_PROC_ADM  : std_logic_vector(3 downto 0) := "0111";
     constant V_VACIADOS  : std_logic_vector(3 downto 0) := "1000";
@@ -53,7 +51,6 @@ package tanque_pkg is
     constant CH_L     : std_logic_vector(4 downto 0) := "01111";
     constant CH_R     : std_logic_vector(4 downto 0) := "10000";   -- r
     constant CH_S     : std_logic_vector(4 downto 0) := "10001";
-    constant CH_T     : std_logic_vector(4 downto 0) := "10010";   -- t
     constant CH_N     : std_logic_vector(4 downto 0) := "10011";   -- n
     constant CH_P     : std_logic_vector(4 downto 0) := "10100";
     constant CH_GUION : std_logic_vector(4 downto 0) := "10101";   -- -

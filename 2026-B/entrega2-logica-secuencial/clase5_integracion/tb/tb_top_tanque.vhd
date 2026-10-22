@@ -7,7 +7,7 @@
 --   * Modelo de tanque: sube un escalon cada T_PASO mientras la bomba esta
 --     encendida y baja uno por segundo con la compuerta abierta.
 --   * Se usa CLK_HZ = 10 kHz (R10) para que la simulacion sea rapida.
---   * Un assert concurrente vigila RF6 en TODOS los flancos de reloj.
+--   * Un assert concurrente vigila RF5 en TODOS los flancos de reloj.
 -- =============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
@@ -100,12 +100,12 @@ begin
     s3 <= s_forzado(2) when forzar else '1' when nivel_tq >= 3 else '0';
     s4 <= s_forzado(3) when forzar else '1' when nivel_tq >= 4 else '0';
 
-    -- ----------------- RF6: vigilancia permanente -----------------
+    -- ----------------- RF5: vigilancia permanente -----------------
     process (clk)
     begin
         if rising_edge(clk) then
             assert not (bomba_en = '1' and compuerta_en = '1')
-                report "RF6 VIOLADO: bomba y compuerta activas a la vez"
+                report "RF5 VIOLADO: bomba y compuerta activas a la vez"
                 severity failure;
         end if;
     end process;
@@ -224,12 +224,12 @@ begin
 
         -- ---------------- TC6 a TC12 ----------------
         -- TODO: escribir un bloque por caso, con la tabla 10.1 de la guia.
-        --   TC6  B10#, S5 = 0 en el segundo 4 y vuelve en el 7 -> ~10 s de bombeo
-        --        (usen congelar <= true para que el tanque no suba)
+        --   TC6  A75#, S5 = 0 durante el llenado -> PAUSA ('P'), el nivel no
+        --        cambia; S5 = 1 -> continua y se detiene en 75 %
         --   TC7  llegar a 100 % -> compuerta 1 y bomba 0 en el mismo flanco;
         --        compuerta abierta hasta 0 %
         --   TC8  cambio de clave con confirmacion distinta y luego igual
-        --   TC9  manual: bomba encendida y luego compuerta (RF6)
+        --   TC9  manual: bomba encendida y luego compuerta (RF5)
         --   TC10 20 s sin teclas con llenado en curso (t_paso <= 6 sec)
         --   TC11 bomba encendida con el nivel congelado 15 s -> "F-b "
         --   TC12 pulso de 50 ms en S3 (forzar/s_forzado) y luego combinacion

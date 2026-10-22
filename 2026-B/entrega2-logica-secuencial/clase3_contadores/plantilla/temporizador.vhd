@@ -1,5 +1,5 @@
 -- =============================================================================
--- CLASE 2 - PLANTILLA: temporizador.vhd
+-- CLASE 3 - PLANTILLA: temporizador.vhd
 -- Mientras ena = '1', cuenta pulsos de 'tick'. Al contar N_TICKS levanta
 -- 'fin' y lo MANTIENE. Si ena = '0' o llega 'reiniciar', vuelve a cero.
 --   Inactividad 20 s : tick = tick_1hz, N_TICKS = 20, reiniciar = tecla_valida

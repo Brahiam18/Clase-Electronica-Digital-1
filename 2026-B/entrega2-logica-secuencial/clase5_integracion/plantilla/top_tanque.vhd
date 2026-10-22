@@ -52,13 +52,13 @@ architecture estructural of top_tanque is
     signal r_push, r_pop, r_clr : std_logic;
     signal cast_cargar, cast_activo, cast_cero, msg_activo, msg_fin : std_logic;
     signal ses_activa, inact_fin, admin : std_logic;
-    signal cmd_n, cmd_t, cmd_c, ack : std_logic;
+    signal cmd_n, cmd_c, ack : std_logic;
     signal objetivo : std_logic_vector(2 downto 0);
-    signal seg_ini, seg_rest, cast_bcd, vac_bcd : std_logic_vector(7 downto 0);
+    signal cast_bcd, vac_bcd : std_logic_vector(7 downto 0);
     signal man_b, man_c : std_logic;
     signal vista : std_logic_vector(3 downto 0);
     -- proceso
-    signal t_cargar, t_contar, t_cero, ini_vac : std_logic;
+    signal ini_vac : std_logic;
     signal est_proc : std_logic_vector(2 downto 0);
     signal bomba_s, comp_s : std_logic;
     -- display
@@ -113,11 +113,10 @@ begin
 
     -- ===================== proceso =====================
     -- TODO 6: fsm_proceso (s5 => sens_s(4))
-    -- TODO 7: temporizador_bcd del llenado (valor => seg_ini, ena => t_contar)
-    -- TODO 8: contador_bcd de vaciados (inc => ini_vac)
+    -- TODO 7: contador_bcd de vaciados (inc => ini_vac)
 
     -- ===================== displays =====================
-    -- TODO 9: selector_nivel, formateador_display y 4 decodificador_7seg
+    -- TODO 8: selector_nivel, formateador_display y 4 decodificador_7seg
 
     -- ===================== conexiones directas a pines =====================
     led_s5       <= sens_s(4);

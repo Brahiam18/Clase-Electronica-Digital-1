@@ -1,5 +1,5 @@
 -- =============================================================================
--- CLASE 3 - PLANTILLA: teclado_4x4.vhd   (bloque ESTRUCTURAL: solo instancias)
+-- CLASE 2 - PLANTILLA: teclado_4x4.vhd   (bloque ESTRUCTURAL: solo instancias)
 --
 --  columnas -> [sincronizador] -> [barrido_teclado] -> [antirrebote] -> [detector_flanco]
 --                col_s           hay_raw, cod_raw     estable(4..0)     tecla_valida

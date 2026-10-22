@@ -1,5 +1,5 @@
 -- =============================================================================
--- CLASE 2 - TAREA: watchdog_bomba.vhd   (RF9, proteccion de marcha en seco)
+-- CLASE 3 - TAREA: watchdog_bomba.vhd   (RF8, proteccion de marcha en seco)
 -- Mientras bomba_en = '1' cuenta segundos. Si el nivel SUBE, la cuenta se
 -- reinicia. Si pasan T_S segundos sin subir -> falla = '1' (se mantiene
 -- hasta que la bomba se apague).

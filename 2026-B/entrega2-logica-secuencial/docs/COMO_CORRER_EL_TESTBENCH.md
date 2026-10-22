@@ -16,7 +16,7 @@ C:\Users\Usuario\Desktop\dig1\
 │   ├── run.do
 │   ├── plantilla\
 │   └── tb\
-├── clase2_contadores\
+├── clase2_teclado\
 └── ...
 ```
 
@@ -93,9 +93,9 @@ Si cierran ModelSim, al abrirlo de nuevo repitan el `cd` antes de `do run.do`.
 | Clase | Comando (desde la carpeta de la clase) | Plantilla sin tocar | Meta |
 |---|---|---|---|
 | 1 | `do run.do` | 6 OK, 7 FALLAS | **13 OK, 0 FALLAS** |
-| 2 | `do run.do` | 7 OK, 11 FALLAS | **18 OK, 0 FALLAS** |
-| 3 | `do run.do` (requiere clases 1 y 2 completas) | 2 OK, 17 FALLAS | **19 OK, 0 FALLAS** |
-| 4 | `do run.do` | 9 OK, 13 FALLAS | **22 OK, 0 FALLAS** |
+| 2 | `do run.do` (requiere la clase 1 completa) | 3 OK, 19 FALLAS | **22 OK, 0 FALLAS** |
+| 3 | `do run.do` | 6 OK, 10 FALLAS | **16 OK, 0 FALLAS** |
+| 4 | `do run.do` | 8 OK, 14 FALLAS | **22 OK, 0 FALLAS** |
 | 5 | `do run.do` (requiere copiar todo a `rtl/`) | — | **0 fallas** en todos los casos |
 
 ---

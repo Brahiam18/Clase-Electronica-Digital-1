@@ -1,16 +1,16 @@
 -- =============================================================================
--- CLASE 2 - TESTBENCH AUTOVERIFICABLE
--- Prueba: base_tiempo, antirrebote, temporizador, digito_bcd,
+-- CLASE 3 - TESTBENCH AUTOVERIFICABLE
+-- Prueba: base_tiempo, temporizador, digito_bcd,
 --         temporizador_bcd y (tarea) watchdog_bomba.
 -- Se usa CLK_HZ = 10 kHz para que 1 s de simulacion sean solo 10 000 ciclos.
 -- =============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 
-entity tb_clase2 is
-end entity tb_clase2;
+entity tb_clase3 is
+end entity tb_clase3;
 
-architecture sim of tb_clase2 is
+architecture sim of tb_clase3 is
     constant CLK_HZ : positive := 10_000;
     constant T      : time := 1 sec / CLK_HZ;      -- 100 us
     signal clk : std_logic := '0';
@@ -19,7 +19,6 @@ architecture sim of tb_clase2 is
 
     signal t1ms, t4hz, t1hz, onda : std_logic;
     signal tick : std_logic := '0';                 -- tick manual del testbench
-    signal ar_in, ar_out : std_logic_vector(0 downto 0) := "0";
     signal t_ena, t_rei, t_fin : std_logic := '0';
     signal b_carg, b_ena, b_cero : std_logic := '0';
     signal b_val, b_q : std_logic_vector(7 downto 0) := x"00";
@@ -31,8 +30,6 @@ begin
     u_bt : entity work.base_tiempo generic map (CLK_HZ => CLK_HZ)
         port map (clk => clk, rst => rst, tick_1ms => t1ms, tick_4hz => t4hz,
                   tick_1hz => t1hz, onda_2hz => onda);
-    u_ar : entity work.antirrebote generic map (ANCHO => 1, N_TICKS => 5)
-        port map (clk => clk, rst => rst, tick => tick, entrada => ar_in, salida => ar_out);
     u_tm : entity work.temporizador generic map (N_TICKS => 5)
         port map (clk => clk, rst => rst, tick => tick, ena => t_ena,
                   reiniciar => t_rei, fin => t_fin);
@@ -81,12 +78,6 @@ begin
         verificar(t1 - t0 = 1 sec, "base_tiempo: tick_1hz cada 1 s");
         wait until onda'event for 2 sec; t0 := now; wait until onda'event for 2 sec; t1 := now;
         verificar(t1 - t0 = 250 ms, "base_tiempo: onda_2hz (medio periodo 250 ms)");
-
-        -- ---------- antirrebote (N = 5) ----------
-        ar_in <= "1"; pulsos(2); ar_in <= "0"; pulsos(1); ar_in <= "1"; pulsos(3);
-        verificar(ar_out = "0", "antirrebote: rebote rechazado");
-        pulsos(3);
-        verificar(ar_out = "1", "antirrebote: acepta tras 5 ticks estable");
 
         -- ---------- temporizador (N = 5) ----------
         t_ena <= '1'; pulsos(4);

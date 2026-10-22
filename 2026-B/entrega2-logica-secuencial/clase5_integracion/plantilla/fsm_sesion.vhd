@@ -1,6 +1,6 @@
 -- =============================================================================
 -- CLASE 5 - PLANTILLA: fsm_sesion.vhd
--- Maquina de estados de la INTERFAZ: contrasenas, menus, captura de valores,
+-- Maquina de estados de la INTERFAZ: contrasenas, menus, captura del nivel,
 -- modo administrador e inactividad. NO maneja la planta: solo envia comandos
 -- a fsm_proceso (R4). Estilo de 2 procesos: logica de siguiente estado
 -- (combinacional) + registros (secuencial).
@@ -35,9 +35,8 @@ entity fsm_sesion is
         msg_activo    : out std_logic;
         sesion_activa : out std_logic;
         es_admin      : out std_logic;
-        cmd_nivel, cmd_tiempo, cmd_cancelar, ack_alarma : out std_logic;
+        cmd_nivel, cmd_cancelar, ack_alarma : out std_logic;
         objetivo      : out std_logic_vector(2 downto 0);
-        seg_bcd       : out std_logic_vector(7 downto 0);
         man_bomba, man_comp : out std_logic;
         vista         : out std_logic_vector(3 downto 0)
     );
@@ -51,19 +50,18 @@ architecture rtl of fsm_sesion is
     -- registros de datos
     signal clave_usr, clave_tmp : std_logic_vector(15 downto 0) := CLAVE_USR_INI;
     signal intentos   : unsigned(1 downto 0) := "00";
-    signal logueado, admin_r, login_adm, modo_t : std_logic := '0';
+    signal logueado, admin_r, login_adm : std_logic := '0';
     signal mb_r, mc_r : std_logic := '0';
     signal obj_r      : std_logic_vector(2 downto 0) := "000";
-    signal seg_r      : std_logic_vector(7 downto 0) := (others => '0');
-    signal cn_r, ct_r, cc_r, ack_r : std_logic := '0';
+    signal cn_r, cc_r, ack_r : std_logic := '0';
 
     -- acciones que pide la logica combinacional
     signal a_login, a_logout, a_fallo, a_adm_on, a_adm_off, a_ret : std_logic;
-    signal a_modo_n, a_modo_t, a_tmp, a_clave, a_tog_b, a_tog_c   : std_logic;
-    signal a_cn, a_ct, a_cc, a_ack : std_logic;
+    signal a_tmp, a_clave, a_tog_b, a_tog_c : std_logic;
+    signal a_cn, a_cc, a_ack : std_logic;
     -- condiciones auxiliares
     signal k, n : unsigned(3 downto 0);
-    signal es_dig, clave_ok, nivel_ok, tiempo_ok : std_logic;
+    signal es_dig, clave_ok, nivel_ok : std_logic;
     signal obj_val : std_logic_vector(2 downto 0);
 begin
     k <= unsigned(tecla_cod);
@@ -76,20 +74,19 @@ begin
         obj_val <= N_25 when x"025", N_50 when x"050",
                    N_75 when x"075", N_100 when x"100", "000" when others;
     nivel_ok  <= '1' when obj_val /= "000" and n >= 2 else '0';
-    tiempo_ok <= '1' when n >= 1 and entrada(7 downto 0) /= x"00" else '0';
 
     -- ================= logica de siguiente estado =================
     process (estado, retorno, tecla_valida, k, n, es_dig, clave_ok, nivel_ok,
-             tiempo_ok, modo_t, intentos, logueado, login_adm, entrada,
-             clave_tmp, t_msg_fin, t_inact_fin, castigo_cero)
+             intentos, logueado, login_adm, entrada, clave_tmp, t_msg_fin,
+             t_inact_fin, castigo_cero)
     begin
         estado_n <= estado; ret_val <= estado; castigo_cargar <= '0';
         reg_push <= '0'; reg_pop <= '0'; reg_clr <= '0'; a_login <= '0'; a_logout <= '0';
-        a_fallo <= '0'; a_ret <= '0'; a_adm_on <= '0'; a_adm_off <= '0'; a_modo_n <= '0';
-        a_modo_t <= '0'; a_tmp <= '0'; a_clave <= '0'; a_tog_b <= '0'; a_tog_c <= '0';
-        a_cn <= '0'; a_ct <= '0'; a_cc <= '0'; a_ack <= '0';
+        a_fallo <= '0'; a_ret <= '0'; a_adm_on <= '0'; a_adm_off <= '0';
+        a_tmp <= '0'; a_clave <= '0'; a_tog_b <= '0'; a_tog_c <= '0';
+        a_cn <= '0'; a_cc <= '0'; a_ack <= '0';
 
-        if logueado = '1' and t_inact_fin = '1' then        -- RF8
+        if logueado = '1' and t_inact_fin = '1' then        -- RF7
             estado_n <= BLOQ; reg_clr <= '1'; a_logout <= '1';
         else
             case estado is
@@ -134,20 +131,19 @@ begin
             when CASTIGO => if castigo_cero = '1' then estado_n <= BLOQ; end if; -- ignora teclas
             when MENU =>
                 -- TODO 1: menu de usuario (seccion 3.1 de la guia)
-                --   A -> modo nivel, limpiar registro, ir a CAPT
-                --   B -> modo tiempo, limpiar registro, ir a CAPT
+                --   A -> limpiar registro e ir a CAPT
                 --   C -> pulso de cancelar ;  * -> cerrar sesion
                 null;
             when CAPT =>
-                -- TODO 2: captura del valor
-                --   digito -> push (maximo 3 digitos en nivel, 2 en tiempo)
+                -- TODO 2: captura del nivel objetivo
+                --   digito -> push (maximo 3 digitos, para poder escribir 100)
                 --   *      -> borrar; si no hay digitos, volver a MENU
                 --   C      -> volver a MENU
-                --   #      -> validar con nivel_ok / tiempo_ok:
-                --             valido -> a_cn o a_ct ; invalido -> MSG (Err) y volver a MENU
+                --   #      -> validar con nivel_ok:
+                --             valido -> a_cn ; invalido -> MSG (Err) y volver a MENU
                 null;
             when MENU_ADM =>
-                -- TODO 3: menu de administrador (RF7): opciones 1 a 5 y *
+                -- TODO 3: menu de administrador (RF6): opciones 1 a 5 y *
                 null;
             when VER =>
                 -- TODO 4: cualquier tecla vuelve a MENU_ADM
@@ -162,22 +158,20 @@ begin
     begin
         if rising_edge(clk) then
             -- los comandos son pulsos de un ciclo
-            cn_r <= a_cn; ct_r <= a_ct; cc_r <= a_cc; ack_r <= a_ack;
+            cn_r <= a_cn; cc_r <= a_cc; ack_r <= a_ack;
             if rst = '1' then
                 estado <= BLOQ; retorno <= BLOQ; clave_usr <= CLAVE_USR_INI;
                 clave_tmp <= (others => '0'); intentos <= "00";
-                logueado <= '0'; admin_r <= '0'; login_adm <= '0'; modo_t <= '0';
-                mb_r <= '0'; mc_r <= '0'; obj_r <= "000"; seg_r <= x"00";
-                cn_r <= '0'; ct_r <= '0'; cc_r <= '0'; ack_r <= '0';
+                logueado <= '0'; admin_r <= '0'; login_adm <= '0';
+                mb_r <= '0'; mc_r <= '0'; obj_r <= "000";
+                cn_r <= '0'; cc_r <= '0'; ack_r <= '0';
             else
                 estado <= estado_n;
                 if a_ret = '1' then retorno <= ret_val; end if;
                 if a_tmp = '1' then clave_tmp <= entrada; end if;
                 if a_clave = '1' then clave_usr <= entrada; end if;
-                if a_modo_n = '1' then modo_t <= '0'; elsif a_modo_t = '1' then modo_t <= '1'; end if;
                 if a_adm_on = '1' then login_adm <= '1'; elsif a_adm_off = '1' then login_adm <= '0'; end if;
                 if a_cn = '1' then obj_r <= obj_val; end if;
-                if a_ct = '1' then seg_r <= entrada(7 downto 0); end if;
                 if a_fallo = '1' then
                     login_adm <= '0';
                     if intentos = 2 then intentos <= "00"; else intentos <= intentos + 1; end if;
@@ -186,7 +180,7 @@ begin
                     logueado <= '1'; admin_r <= login_adm;
                     login_adm <= '0'; intentos <= "00";
                 end if;
-                -- manual: solo uno a la vez (RF6 tambien aqui)
+                -- manual: solo uno a la vez (RF5 tambien aqui)
                 if a_tog_b = '1' then mb_r <= not mb_r; mc_r <= '0';
                 elsif a_tog_c = '1' then mc_r <= not mc_r; mb_r <= '0'; end if;
                 if a_logout = '1' or estado_proc = P_VACIAR
@@ -199,8 +193,8 @@ begin
     end process;
 
     -- ================= salidas =================
-    cmd_nivel <= cn_r; cmd_tiempo <= ct_r; cmd_cancelar <= cc_r; ack_alarma <= ack_r;
-    objetivo  <= obj_r; seg_bcd <= seg_r;
+    cmd_nivel <= cn_r; cmd_cancelar <= cc_r; ack_alarma <= ack_r;
+    objetivo  <= obj_r;
     man_bomba <= mb_r;  man_comp <= mc_r;
     sesion_activa  <= logueado;
     es_admin       <= admin_r;
@@ -212,8 +206,7 @@ begin
              V_CLAVE_ADM  when (estado = BLOQ and login_adm = '1')
                                or estado = CLAVE1 or estado = CLAVE2 else
              V_CLAVE_USR  when estado = BLOQ or estado = VERIF else
-             V_CAP_NIVEL  when estado = CAPT and modo_t = '0' else
-             V_CAP_TIEMPO when estado = CAPT else
+             V_CAP_NIVEL  when estado = CAPT else
              V_VACIADOS   when estado = VER else
              V_PROC_ADM   when admin_r = '1' else
              V_PROC_USR;
