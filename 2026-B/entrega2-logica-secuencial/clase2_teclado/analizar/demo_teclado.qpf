@@ -1,0 +1,6 @@
+QUARTUS_VERSION = "16.1"
+DATE = "00:00:00  October 22, 2026"
+
+# Revisions
+
+PROJECT_REVISION = "demo_teclado"

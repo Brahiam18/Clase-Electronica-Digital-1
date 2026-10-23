@@ -22,7 +22,7 @@ set_location_assignment PIN_D1  -to led[4]
 set_location_assignment PIN_F3  -to led[5]
 set_location_assignment PIN_B1  -to led[6]
 set_location_assignment PIN_L3  -to led[7]
-# Teclado en GPIO_1 [1..8] (igual que en el proyecto)
+# Teclado en GPIO_1 (conector JP2): filas = pines 4,5,6,7 ; columnas = pines 8,9,10,13 (igual que en el proyecto)
 set_location_assignment PIN_T15 -to filas[0]
 set_location_assignment PIN_T14 -to filas[1]
 set_location_assignment PIN_T13 -to filas[2]
