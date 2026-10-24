@@ -60,8 +60,11 @@ begin
                      -- TODO: fila 1 (4 5 6 B), fila 2 (7 8 9 C), fila 3 (* 0 #)
                      "1101" when others;  -- D
 
-    -- TODO 3: decodificador de fila activa en BAJO (fila 0 -> "1110", ...)
-    filas <= "1111";
+    -- TODO 3: decodificador de fila en DRENAJE ABIERTO: la fila activa en '0'
+    --         y las demas en 'Z', nunca en '1' (fila 0 -> "ZZZ0", ...).
+    --         Asi dos teclas de la misma columna no ponen dos salidas en corto
+    --         y el teclado se conecta directo, sin resistencias en serie.
+    filas <= "ZZZZ";
 
     -- TODO 4: proceso secuencial (reset, y en cada tick las 3 situaciones)
     process (clk)
