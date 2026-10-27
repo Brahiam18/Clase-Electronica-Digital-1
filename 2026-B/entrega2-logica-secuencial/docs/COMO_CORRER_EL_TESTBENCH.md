@@ -93,7 +93,7 @@ Si cierran ModelSim, al abrirlo de nuevo repitan el `cd` antes de `do run.do`.
 | Clase | Comando (desde la carpeta de la clase) | Plantilla sin tocar | Meta |
 |---|---|---|---|
 | 1 | `do run.do` | 6 OK, 7 FALLAS | **13 OK, 0 FALLAS** |
-| 2 | `do run.do` (requiere la clase 1 completa) | 3 OK, 19 FALLAS | **22 OK, 0 FALLAS** |
+| 2 | No usa testbench: se prueba directo en la tarjeta (ver [README de la clase 2](../clase2_teclado/README.md)) | — | **16 teclas correctas en los LEDs** |
 | 3 | `do run.do` | 6 OK, 10 FALLAS | **16 OK, 0 FALLAS** |
 | 4 | `do run.do` | 8 OK, 14 FALLAS | **22 OK, 0 FALLAS** |
 | 5 | `do run.do` (requiere copiar todo a `rtl/`) | — | **0 fallas** en todos los casos |

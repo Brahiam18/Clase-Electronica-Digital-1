@@ -19,6 +19,7 @@ Clase-Electronica-Digital-1/
 ├── 2026-B/
 │   ├── entrega1-logica-combinacional/
 │   └── entrega2-logica-secuencial/
+├── recursos/      ← manual de la DE0-Nano y pines (todos los semestres)
 ├── 2027-A/        ← (próximos semestres)
 └── ...
 ```
@@ -43,6 +44,6 @@ Para recibir el material nuevo que se vaya publicando: `git pull`.
 
 - **Quartus Prime Lite** (16.1 o superior), con soporte para Cyclone IV E.
 - **ModelSim – Intel FPGA Starter Edition** o **Questa – Intel/Altera FPGA Starter Edition**, incluido con Quartus.
-- Tarjeta **DE0-Nano** (Cyclone IV E · EP4CE22F17C6).
+- Tarjeta **DE0-Nano** (Cyclone IV E · EP4CE22F17C6). Manual con todos los pines: **[recursos/DE0_Nano_Manual_de_usuario.pdf](recursos/DE0_Nano_Manual_de_usuario.pdf)** · tabla rápida de pines en [`recursos/`](recursos/).
 
 Las instrucciones de uso de cada entrega están en el `README` de su carpeta.

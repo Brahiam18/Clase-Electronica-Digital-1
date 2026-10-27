@@ -25,7 +25,7 @@ Para verlos en Quartus: creen un proyecto en una carpeta aparte, agreguen el arc
 
 | # | Archivo | Qué completar |
 |---|---|---|
-| 1 | `base_tiempo.vhd` | etapas 2 y 3 de la cascada: tick_4hz, tick_1hz y onda_2hz (en la clase 2 lo usaron ya hecho; ahora lo construyen) |
+| 1 | `base_tiempo.vhd` | etapas 2 y 3 de la cascada: tick_4hz, tick_1hz y onda_2hz (en la clase 2 usaron un generador de 1 ms sencillo; ahora construyen la base de tiempo completa) |
 | 2 | `temporizador.vhd` | temporizador binario genérico (inactividad, error de sensor, mensajes) |
 | 3 | `digito_bcd.vhd` | un dígito BCD descendente con `presta` |
 | 4 | `temporizador_bcd.vhd` | dos dígitos BCD en cascada: cuenta regresiva del bloqueo de 30 s |
