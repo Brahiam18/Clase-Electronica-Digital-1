@@ -14,7 +14,7 @@ Todo se construye en VHDL con flip-flops, registros, contadores y máquinas de e
 
 | Carpeta | Contenido |
 |---|---|
-| [`guia/`](guia/) | **Guía oficial de la entrega** (requerimientos RF1–RF10, restricciones R1–R13, diagramas, casos de prueba y rúbrica) y **guía de laboratorio del teclado matricial** |
+| [`guia/`](guia/) | **Guía oficial de la entrega** (requerimientos RF1–RF6, arquitectura lógica y física, máquinas de estado TT1 y TT2, protección del hardware) y **guía de laboratorio del teclado matricial** |
 | [`diapositivas/`](diapositivas/) | Presentaciones de las 5 clases (PDF) |
 | [`docs/`](docs/) | **[Cómo correr el testbench paso a paso](docs/COMO_CORRER_EL_TESTBENCH.md)** y hoja rápida en PDF |
 | [`clase1_registros/`](clase1_registros/) | Flip-flops, registros y reset |
@@ -54,7 +54,7 @@ Los bloques de cada clase se usan en la siguiente. **No avancen con un bloque qu
 
 - **Quartus Prime Lite** (versión 16.1 o superior) con soporte para Cyclone IV E.
 - **ModelSim – Intel FPGA Starter Edition** o **Questa – Intel/Altera FPGA Starter Edition** (viene con Quartus).
-- Tarjeta **DE0-Nano** ([manual con los pines](../../recursos/DE0_Nano_Manual_de_usuario.pdf)), teclado matricial 4×4 y componentes de protección de la compuerta (ver sección 8 de la guía).
+- Tarjeta **DE0-Nano** ([manual con los pines](../../recursos/DE0_Nano_Manual_de_usuario.pdf)), teclado matricial 4×4 y componentes de protección de la compuerta (ver sección 5 de la guía).
 
 ---
 
@@ -152,4 +152,4 @@ Con la plantilla sin completar **deben salir fallas**. Eso confirma que todo est
 
 ## Entrega
 
-La fecha, los entregables y la rúbrica están en la **sección 11 de la [guía](guia/Guia_Segunda_Entrega.pdf)**. En la sustentación, cualquier integrante debe poder explicar cualquier bloque del código.
+Los requerimientos y la arquitectura están en la **[guía](guia/Guia_Segunda_Entrega.pdf)**. En la sustentación, cualquier integrante debe poder explicar cualquier bloque del código.
