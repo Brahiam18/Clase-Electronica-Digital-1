@@ -16,9 +16,9 @@ architecture sim of tb_fsm_proceso is
     signal clk : std_logic := '0';
     signal fin_sim : boolean := false;
     signal rst : std_logic := '1';
-    signal cmd_n, cmd_c, man_b, man_c, ack : std_logic := '0';
+    signal cmd_n, cmd_c, man_b, man_c : std_logic := '0';
     signal s5 : std_logic := '1';
-    signal err_s, falla_b : std_logic := '0';
+    signal err_s : std_logic := '0';
     signal objetivo, nivel, est : std_logic_vector(2 downto 0) := "000";
     signal ini_vac, bomba, comp : std_logic;
 begin
@@ -27,8 +27,8 @@ begin
     dut : entity work.fsm_proceso
         port map (clk => clk, rst => rst, cmd_nivel => cmd_n,
                   cmd_cancelar => cmd_c, objetivo => objetivo, man_bomba => man_b,
-                  man_comp => man_c, ack_alarma => ack, s5 => s5, nivel => nivel,
-                  err_sensor => err_s, falla_bomba => falla_b,
+                  man_comp => man_c, s5 => s5, nivel => nivel,
+                  err_sensor => err_s,
                   inicio_vaciado => ini_vac,
                   estado_proc => est, bomba_en => bomba, compuerta_en => comp);
 
@@ -108,16 +108,14 @@ begin
 
         -- ---------- fallas ----------
         objetivo <= N_100; pulso(cmd_n);
-        falla_b <= '1'; ciclos(2); falla_b <= '0'; ciclos(1);
-        verificar(est = P_FALLA_B and bomba = '0', "watchdog -> FALLA (F-b)");
-        pulso(ack);
-        verificar(est = P_REPOSO, "ack -> REPOSO");
         err_s <= '1'; ciclos(2);
-        verificar(est = P_FALLA_S, "error de sensor -> FALLA (F-S)");
-        pulso(ack);
-        verificar(est = P_FALLA_S, "ack con sensor aun en error -> sigue en FALLA");
-        err_s <= '0'; pulso(ack);
-        verificar(est = P_REPOSO, "ack con lectura valida -> REPOSO");
+        verificar(est = P_FALLA_S and bomba = '0', "error de sensor -> FALLA (F-S), bomba apagada");
+        pulso(cmd_c); man_b <= '1'; ciclos(2);
+        verificar(est = P_FALLA_S and bomba = '0', "en FALLA se ignoran cancelar y manual");
+        man_b <= '0'; err_s <= '0'; ciclos(3);
+        verificar(est = P_FALLA_S, "lectura valida: sigue enclavada en FALLA");
+        rst <= '1'; ciclos(2); rst <= '0'; ciclos(1);
+        verificar(est = P_REPOSO and bomba = '0' and comp = '0', "reset (KEY0) -> REPOSO");
 
         report "===== RESUMEN: " & integer'image(ok) & " OK, "
                & integer'image(mal) & " FALLAS =====";

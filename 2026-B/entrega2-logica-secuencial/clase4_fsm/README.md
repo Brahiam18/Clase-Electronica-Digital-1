@@ -4,7 +4,7 @@ Pasar de un diagrama de estados a VHDL con el estilo de tres procesos, prioridad
 
 📑 Diapositivas: [Clase4_Maquinas_de_estado.pdf](../diapositivas/Clase4_Maquinas_de_estado.pdf)  ·  📘 [Cómo correr el testbench (guía detallada)](../docs/COMO_CORRER_EL_TESTBENCH.md)
 
-> **Antes de empezar:** Antes de escribir código, completen en papel la tabla de transiciones (diapositiva 7) usando la Figura 2 de la guía.
+> **Antes de empezar:** Antes de escribir código, completen en papel la tabla de transiciones (diapositiva 7) usando la Figura 1 de la guía (flujo de la planta). FALLA queda enclavada hasta el reset (RF6).
 
 ## Contenido de la carpeta
 
@@ -47,8 +47,8 @@ Para verlos en Quartus: creen un proyecto en una carpeta aparte, agreguen el arc
 
 4. Al final del Transcript lean la línea `RESUMEN`:
 
-   - Plantilla sin completar: **8 OK, 14 FALLAS**
-   - Meta: **22 OK, 0 FALLAS**
+   - Plantilla sin completar: **11 OK, 10 FALLAS**
+   - Meta: **21 OK, 0 FALLAS**
 
 5. Cada vez que cambien código: **guardar (Ctrl+S)** y otra vez `do run.do` (flecha ↑ y Enter).
 

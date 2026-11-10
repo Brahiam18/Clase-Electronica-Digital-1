@@ -43,7 +43,7 @@ claseN_tema/
 | 1 | Flip-flops, registros y reset | `sincronizador`, `reset_sync`, `detector_flanco`, `reg_desplazamiento` | **13 OK** |
 | 2 | Teclado matricial | `barrido_teclado` y `demo_teclado` (3 partes para completar) + práctica en la tarjeta | **16 teclas en los LEDs** |
 | 3 | Contadores y base de tiempo | `base_tiempo`, `temporizador`, `digito_bcd`, `temporizador_bcd`, `watchdog_bomba` (tarea) | **16 OK** |
-| 4 | Máquinas de estado | `fsm_proceso` (estados PAUSA, VACIAR, MANUAL, FALLA y salidas) | **22 OK** |
+| 4 | Máquinas de estado | `fsm_proceso` (estados PAUSA, VACIAR, MANUAL, FALLA y salidas) | **21 OK** |
 | 5 | Integración y Quartus | `fsm_sesion`, `formateador_display`, `top_tanque` y casos TC3, TC6–TC12 | **12 casos, 0 fallas** |
 
 Los bloques de cada clase se usan en la siguiente. **No avancen con un bloque que no pase su testbench.**
